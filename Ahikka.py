@@ -2,12 +2,12 @@ from telethon.sync import TelegramClient
 from telethon import events
 import asyncio
 
-# Конфигурация API
-api_id = ''
-api_hash = ''
-session_file = 'sessionally'
+#v 1.0.3
 
-#v 1.0.2
+# Конфигурация API
+api_id = '20099691'
+api_hash = 'ec9f98c39c205e13deefdcd0834a80e5'
+session_file = 'sessionally'
 
 # Подключение к Telegram
 client = TelegramClient(session_file, api_id, api_hash)
@@ -16,51 +16,55 @@ client.start()
 # Переменная для хранения состояния дублирования сообщений
 duplicate_enabled = True
 
+# Ваш user_id
+your_user_id = 5685623637
+
 # Обработчик команды /a
 @client.on(events.NewMessage(pattern='/a'))
 async def handle_command_a(event):
+    # Проверка, что команду отправил только ваш аккаунт
+    if event.sender_id != your_user_id:
+        return
+
     # Получение аргументов команды
-    args = event.raw_text.split(maxsplit=1)[1:]  # Пропускаем "/a" и получаем максимум один аргумент
-
-    if not args:
-        await event.reply('Недостаточно аргументов. Используйте: /a <text> <int>')
+    args = event.raw_text.split()
+    if len(args) < 2:
+        await event.reply('Недостаточно аргументов. Используйте: /a "<text>" <int> или /a off')
         return
 
-    input_text = args[0].strip()
-
-    # Разделение текста на слова
-    words = input_text.split()
-
-    if not words or not words[-1].isdigit():
-        await event.reply('Недостаточно аргументов. Используйте: /a <text> <int>')
-        return
-
-    text = ' '.join(words[:-1])
-    interval = int(words[-1])
-
-    if interval == 0:
-        await event.reply('Значение интервала не может быть 0.')
-        return
-
-    global duplicate_enabled
-
-    if text.lower() == 'off':
+    if len(args) == 2 and args[1].lower() == 'off':
+        global duplicate_enabled
         if duplicate_enabled:
             duplicate_enabled = False
             await event.reply('Код успешно отключен.')
         else:
             await event.reply('Код уже отключен.')
     else:
-        duplicate_enabled = True
-        await event.reply('Успешно. Ожидайте {} часов.'.format(interval))
+        if len(args) < 3:
+            await event.reply('Недостаточно аргументов. Используйте: /a "<text>" <int> или /a off')
+            return
+
+        text = ' '.join(args[1:-1]).strip('"')
+        number = args[-1].strip("'")
+
+        try:
+            number = int(number)
+        except ValueError:
+            await event.reply('Неверный формат аргумента <int>. Используйте: /a "<text>" <int> или /a off')
+            return
+
+        if number == 0:
+            await event.reply('Значение интервала не может быть 0.')
+            return
+
+        await event.reply('Успешно. Ожидайте {} часов.'.format(number))
 
         while duplicate_enabled:
             # Отправка сообщения в текущий чат или диалог
             await event.respond(text)
 
-            await asyncio.sleep(interval * 3600)  # Ожидание заданного количества часов
+            await asyncio.sleep(number * 3600)  # Ожидание заданного количества часов
 
 # Запуск бота
 with client:
     client.run_until_disconnected()
-

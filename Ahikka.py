@@ -5,8 +5,8 @@ import asyncio
 #v 1.0.3
 
 # Конфигурация API
-api_id = '20099691'
-api_hash = 'ec9f98c39c205e13deefdcd0834a80e5'
+api_id = ''
+api_hash = ''
 session_file = 'sessionally'
 
 # Подключение к Telegram
@@ -17,7 +17,7 @@ client.start()
 duplicate_enabled = True
 
 # Ваш user_id
-your_user_id = 5685623637
+your_user_id = 
 
 # Обработчик команды /a
 @client.on(events.NewMessage(pattern='/a'))

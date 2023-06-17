@@ -3,9 +3,11 @@ from telethon import events
 import asyncio
 
 # Конфигурация API
-api_id = '20099691'
-api_hash = 'ec9f98c39c205e13deefdcd0834a80e5'
+api_id = ''
+api_hash = ''
 session_file = 'sessionally'
+
+#v 1.0.2
 
 # Подключение к Telegram
 client = TelegramClient(session_file, api_id, api_hash)
@@ -18,13 +20,23 @@ duplicate_enabled = True
 @client.on(events.NewMessage(pattern='/a'))
 async def handle_command_a(event):
     # Получение аргументов команды
-    args = event.raw_text.split()[1:]  # Пропускаем "/a"
-    if len(args) < 2:
+    args = event.raw_text.split(maxsplit=1)[1:]  # Пропускаем "/a" и получаем максимум один аргумент
+
+    if not args:
         await event.reply('Недостаточно аргументов. Используйте: /a <text> <int>')
         return
 
-    text = args[0]
-    interval = int(args[1])
+    input_text = args[0].strip()
+
+    # Разделение текста на слова
+    words = input_text.split()
+
+    if not words or not words[-1].isdigit():
+        await event.reply('Недостаточно аргументов. Используйте: /a <text> <int>')
+        return
+
+    text = ' '.join(words[:-1])
+    interval = int(words[-1])
 
     if interval == 0:
         await event.reply('Значение интервала не может быть 0.')
@@ -51,3 +63,4 @@ async def handle_command_a(event):
 # Запуск бота
 with client:
     client.run_until_disconnected()
+

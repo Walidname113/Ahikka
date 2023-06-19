@@ -2,11 +2,16 @@ from telethon.sync import TelegramClient
 from telethon import events
 import asyncio
 
-#v 1.0.3
+#v 1.1.3
 
-# Конфигурация API
-api_id = ''
-api_hash = ''
+# Проверка наличия аргументов в команде
+if len(sys.argv) < 4:
+    print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash")
+    sys.exit(1)
+
+# Извлечение аргументов из командной строки
+api_id = sys.argv[1]
+api_hash = sys.argv[2]
 session_file = 'sessionally'
 
 # Подключение к Telegram
@@ -16,10 +21,7 @@ client.start()
 # Переменная для хранения состояния дублирования сообщений
 duplicate_enabled = True
 
-# Ваш user_id
-your_user_id = 
-
-# Обработчик команды /a
+#  /a
 @client.on(events.NewMessage(pattern='/a'))
 async def handle_command_a(event):
     # Проверка, что команду отправил только ваш аккаунт
@@ -68,3 +70,4 @@ async def handle_command_a(event):
 # Запуск бота
 with client:
     client.run_until_disconnected()
+

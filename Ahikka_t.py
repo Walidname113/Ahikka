@@ -3,15 +3,16 @@ from telethon import events
 import asyncio
 import sys
 
-#v 1.1.9
+#v 1.2.9
 
-if len(sys.argv) < 4:
-    print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash user_id")
+if len(sys.argv) < 5:
+    print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash user_id language")
     sys.exit(1)
 
 api_id = sys.argv[1]
 api_hash = sys.argv[2]
 user_id = sys.argv[3]
+language = sys.argv[4]
 session_file = 'sessionally'
 
 client = TelegramClient(session_file, api_id, api_hash)
@@ -19,6 +20,31 @@ client.start()
 
 user_messages = {}
 duplicate_enabled = True
+
+def get_message_text(language, key):
+    messages = {
+        'EN': {
+            'not_enough_args': 'Not enough arguments. Usage: /a "<text>" <int> or /a off',
+            'invalid_argument': 'Invalid argument format for <int>. Usage: /a "<text>" <int> or /a off',
+            'interval_zero': 'Interval value cannot be 0.',
+            'code_disabled': 'Code successfully disabled.',
+            'code_already_disabled': 'Code is already disabled.',
+            'success_message': 'Success. Wait for {} hour(s).',
+            'off_message': 'Code already disabled.',
+            'message_sent': 'Message sent: {}'
+        },
+        'RU': {
+            'not_enough_args': 'Недостаточно аргументов. Используйте: /a "<text>" <int> или /a off',
+            'invalid_argument': 'Неверный формат аргумента <int>. Используйте: /a "<text>" <int> или /a off',
+            'interval_zero': 'Значение интервала не может быть 0.',
+            'code_disabled': 'Код успешно отключен.',
+            'code_already_disabled': 'Код уже отключен.',
+            'success_message': 'Успешно. Ожидайте {} час(ов).',
+            'off_message': 'Код уже отключен.',
+            'message_sent': 'Сообщение отправлено: {}'
+        }
+    }
+    return messages[language][key]
 
 @client.on(events.NewMessage(pattern='/a'))
 async def handle_command_a(event):
@@ -32,11 +58,11 @@ async def handle_command_a(event):
         if len(args) == 2 and args[1].lower() == 'off':
             if duplicate_enabled:
                 duplicate_enabled = False
-                await event.reply('Код успешно отключен.')
+                await event.reply(get_message_text(language, 'code_disabled'))
             else:
-                await event.reply('Код уже отключен.')
+                await event.reply(get_message_text(language, 'code_already_disabled'))
         else:
-            await event.reply('Недостаточно аргументов. Используйте: /a "<text>" <int> или /a off')
+            await event.reply(get_message_text(language, 'not_enough_args'))
         return
 
     text = ' '.join(args[1:-1]).strip('"')
@@ -45,22 +71,22 @@ async def handle_command_a(event):
     try:
         number = int(number)
     except ValueError:
-        await event.reply('Неверный формат аргумента <int>. Используйте: /a "<text>" <int> или /a off')
+        await event.reply(get_message_text(language, 'invalid_argument'))
         return
 
     if number == 0:
-        await event.reply('Значение интервала не может быть 0.')
+        await event.reply(get_message_text(language, 'interval_zero'))
         return
 
     if duplicate_enabled:
-        await event.reply(f'Успешно. Ожидайте {number} часов.')
+        await event.reply(get_message_text(language, 'success_message').format(number))
 
         while duplicate_enabled:
-            await event.reply(text)
+            await event.reply(get_message_text(language, 'message_sent').format(text))
 
             await asyncio.sleep(number * 3600)
     else:
-        await event.reply('Код уже отключен.')
+        await event.reply(get_message_text(language, 'off_message'))
 
 with client:
     client.run_until_disconnected()

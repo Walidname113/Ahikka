@@ -3,7 +3,7 @@ from telethon import events
 import asyncio
 import sys
 
-#v 1.3.0
+#v 1.3.1(bug)
 
 if len(sys.argv) < 5:
     print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash user_id language")

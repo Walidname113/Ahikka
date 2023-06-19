@@ -3,7 +3,7 @@ from telethon import events
 import asyncio
 import sys
 
-#v 1.1.8
+#v 1.1.9
 
 if len(sys.argv) < 4:
     print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash user_id")
@@ -22,6 +22,8 @@ duplicate_enabled = True
 
 @client.on(events.NewMessage(pattern='/a'))
 async def handle_command_a(event):
+    global duplicate_enabled
+
     if event.sender_id != int(user_id):
         return
 

@@ -3,16 +3,17 @@ from telethon import events
 import asyncio
 import sys
 
-#v 1.1.4
+#v 1.1.5
 
 # Проверка наличия аргументов в команде
 if len(sys.argv) < 4:
-    print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash")
+    print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash user_id")
     sys.exit(1)
 
 # Извлечение аргументов из командной строки
 api_id = sys.argv[1]
 api_hash = sys.argv[2]
+user_id = sys.argv[3]
 session_file = 'sessionally'
 
 # Подключение к Telegram
@@ -25,13 +26,13 @@ duplicate_enabled = True
 #  /a
 @client.on(events.NewMessage(pattern='/a'))
 async def handle_command_a(event):
-    # Проверка, что команду отправил только ваш аккаунт
-    if event.sender_id != your_user_id:
+    # Проверка, что команду отправил только указанный пользователь
+    if event.sender_id != int(user_id):
         return
 
     # Получение аргументов команды
     args = event.raw_text.split()
-    if len(args) < 2:
+    if len(args) < 3:
         await event.reply('Недостаточно аргументов. Используйте: /a "<text>" <int> или /a off')
         return
 
@@ -43,12 +44,8 @@ async def handle_command_a(event):
         else:
             await event.reply('Код уже отключен.')
     else:
-        if len(args) < 3:
-            await event.reply('Недостаточно аргументов. Используйте: /a "<text>" <int> или /a off')
-            return
-
         text = ' '.join(args[1:-1]).strip('"')
-        number = args[-1].strip("'")
+        number = args[-1]
 
         try:
             number = int(number)
@@ -71,4 +68,3 @@ async def handle_command_a(event):
 # Запуск бота
 with client:
     client.run_until_disconnected()
-

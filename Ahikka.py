@@ -1,8 +1,9 @@
 from telethon.sync import TelegramClient
 from telethon import events
 import asyncio
+import sys
 
-#v 1.1.3
+#v 1.1.4
 
 # Проверка наличия аргументов в команде
 if len(sys.argv) < 4:

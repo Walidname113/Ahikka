@@ -3,7 +3,7 @@ from telethon import events
 import asyncio
 import sys
 
-#v 1.2.9
+#v 1.3.0
 
 if len(sys.argv) < 5:
     print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash user_id language")
@@ -31,7 +31,9 @@ def get_message_text(language, key):
             'code_already_disabled': 'Code is already disabled.',
             'success_message': 'Success. Wait for {} hour(s).',
             'off_message': 'Code already disabled.',
-            'message_sent': 'Message sent: {}'
+            'message_sent': 'Message sent: {}',
+            'language_updated': 'Language successfully updated to English.',
+            'language_already_set': 'Language is already set to English.'
         },
         'RU': {
             'not_enough_args': 'Недостаточно аргументов. Используйте: /a "<text>" <int> или /a off',
@@ -41,7 +43,9 @@ def get_message_text(language, key):
             'code_already_disabled': 'Код уже отключен.',
             'success_message': 'Успешно. Ожидайте {} час(ов).',
             'off_message': 'Код уже отключен.',
-            'message_sent': 'Сообщение отправлено: {}'
+            'message_sent': 'Сообщение отправлено: {}',
+            'language_updated': 'Язык успешно изменен на русский.',
+            'language_already_set': 'Язык уже установлен на русский.'
         }
     }
     return messages[language][key]
@@ -78,15 +82,33 @@ async def handle_command_a(event):
         await event.reply(get_message_text(language, 'interval_zero'))
         return
 
-    if duplicate_enabled:
-        await event.reply(get_message_text(language, 'success_message').format(number))
-
-        while duplicate_enabled:
-            await event.reply(get_message_text(language, 'message_sent').format(text))
-
-            await asyncio.sleep(number * 3600)
+    if event.sender_id in user_messages:
+        await user_messages[event.sender_id].edit(get_message_text(language, 'success_message').format(number))
     else:
-        await event.reply(get_message_text(language, 'off_message'))
+        user_messages[event.sender_id] = await event.reply(get_message_text(language, 'success_message').format(number))
+
+    while duplicate_enabled:
+        if event.sender_id in user_messages:
+            await user_messages[event.sender_id].edit(text)
+        else:
+            user_messages[event.sender_id] = await event.reply(text)
+
+        await asyncio.sleep(number * 3600)
+
+@client.on(events.NewMessage(pattern='/language'))
+async def handle_command_language(event):
+    global language
+    args = event.raw_text.split()
+    if len(args) != 2:
+        return
+
+    new_language = args[1].upper()
+    if new_language in ('EN', 'RU'):
+        if new_language != language:
+            language = new_language
+            await event.reply(get_message_text(language, 'language_updated'))
+        else:
+            await event.reply(get_message_text(language, 'language_already_set'))
 
 with client:
     client.run_until_disconnected()

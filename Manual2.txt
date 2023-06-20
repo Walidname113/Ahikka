@@ -1,0 +1,9 @@
+En (c manual): Where to get api_id, api_hash, user_id? How to get api_id and api_hash see here: https://youtu.be/DcqDA249Lhg 
+How to get user_id? 
+Type @userinfobot in the telegram in the search engine, find the bot and press /start in it. 
+Then the bot will give us information about the account.
+▪ Nickname: @Username ▪ ID: 1234567890 
+▪ Name: name 
+▪️ Language: FatalError ,
+among this we need only ID. Congratulations, you have received an ID. Just paste the data you received into the appropriate cells.
+

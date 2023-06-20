@@ -1,9 +1,8 @@
 from telethon.sync import TelegramClient
 from telethon import events
-import asyncio
 import sys
 
-#v 1.3.2(bug)
+#v 1.3.3(stable)
 
 if len(sys.argv) < 5:
     print("Недостаточно аргументов. Используйте: python Ahikka.py api_id api_hash user_id language")
@@ -86,6 +85,21 @@ async def handle_command_a(event):
     while duplicate_enabled:
         await event.reply(text)
         await asyncio.sleep(number * 3600)
+
+@client.on(events.NewMessage(pattern='/language'))
+async def handle_command_language(event):
+    global language
+    args = event.raw_text.split()
+    if len(args) != 2:
+        return
+
+    new_language = args[1].upper()
+    if new_language in ('EN', 'RU'):
+        if new_language != language:
+            language = new_language
+            await event.reply(get_message_text(language, 'language_updated'))
+        else:
+            await event.reply(get_message_text(language, 'language_already_set'))
 
 with client:
     client.run_until_disconnected()

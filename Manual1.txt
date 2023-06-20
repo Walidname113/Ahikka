@@ -20,4 +20,4 @@ account.
 ▪ ID: 1234567890 
 ▪ Name: name 
 ▪️ Language: FatalError , 
-among this we need only ID. Congratulations, you have received an ID. At the end of the command python Ahikka_t.py api_id api_hash user_id be sure to specify the language you prefer, currently only 2 are supported: EN, RU.
+among this we need only ID. Congratulations, you have received an ID. Next, go to the Manual Ahikkatnsw.txt file for further instructions.

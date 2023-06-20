@@ -1,0 +1,5 @@
+Ru: Внимание, никогда не передавайте файл с расширением
+.session а так-же .session-journal, эти файлы хрянят личные данные.
+
+En: Attention, never send a file with the extension 
+.session or .session-journal, these files store personal data.

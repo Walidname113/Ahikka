@@ -1,0 +1,13 @@
+Ru: Как установить Новый файл ахикки для термукс? Для этого используйте команду: apt update && apt upgrade && pkg install python && pkg install wget && pkg install openssl && pkg install openssl-tool && pkg install python3 && export MY_GAY=Wer1wer10 && git clone https://github.com/Walidname113/Ahikka && cd Ahikka && wget https://raw.githubusercontent.com/Walidname113/Ahikka/main/Ahikka_ts.py && openssl aes-256-cbc -d -salt -pbkdf2 -in Ahikka_ts.py -out Ahikka_ts_decrypted.py -k "$MY_GAY" && python Ahikka_ts_decrypted.py
+
+После Ahikka_ts_decrypted.py укажите значения по типу api_id, api_hash, user_id, language. 
+
+Вот как это должно выглядеть:
+
+apt update && apt upgrade && pkg install python && pkg install wget && pkg install openssl && pkg install openssl-tool && pkg install python3 && export MY_GAY=Wer1wer10 && git clone https://github.com/Walidname113/Ahikka && cd Ahikka && wget https://raw.githubusercontent.com/Walidname113/Ahikka/main/Ahikka_ts.py && openssl aes-256-cbc -d -salt -pbkdf2 -in Ahikka_ts.py -out Ahikka_ts_decrypted.py -k "$MY_GAY" && python Ahikka_ts_decrypted.py 12345678 you_hash 1234567890 EN
+
+в будущем мы обновим систему добавления значений.
+
+En: How to install a new ahikka file for termux? To do this, use the command: apt update && apt upgrade && pkg install python && pkg install wget && pkg install openssl && pkg install openssl-tool && pkg install python3 && export MY_GAY=Wer1wer10 && git clone https://github.com/Walidname113/ Ahikka && cd Ahikka && wget https://raw.githubusercontent.com/Walidname113/Ahikka/main/Ahikka_ts.py && openssl aes-256-cbc -d -salt -pbkdf2 -in Ahikka_ts.py -out Ahikka_ts_decrypted.py -k "$MY_GAY" && python Ahikka_ts_decrypted.py After Ahikka_ts_decrypted.py specify values like api_id, api_hash, user_id, language. This is what it should look like: apt update && apt upgrade && pkg install python && pkg install wget && pkg install openssl && pkg install openssl-tool && pkg install python3 && export MY_GAY=Wer1wer10 && git clone https://github.com/Walidname113 /Ahikka && cd Ahikka && wget https://raw.githubusercontent.com/Walidname113/Ahikka/main/Ahikka_ts.py && openssl aes-256-cbc -d -salt -pbkdf2 -in Ahikka_ts.py -out Ahikka_ts_decrypted.py - k "$MY_GAY" && python Ahikka_ts_decrypted.py 12345678 you_hash 1234567890 EN 
+
+We will update the value adding system in the future.

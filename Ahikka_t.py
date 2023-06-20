@@ -1,6 +1,7 @@
 from telethon.sync import TelegramClient
 from telethon import events
 import sys
+import asyncio
 
 #v 1.3.4(stable)
 

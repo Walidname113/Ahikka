@@ -1,8 +1,4 @@
 Ru: Как установить Новый файл ахикки для термукс? Для этого используйте команду: git clone https://github.com/Walidname113/Ahikka && cd Ahikka && bash install.sh
 
-В будущем мы обновим систему добавления значений.
-
 En: How to install a new ahikka file for termux? To do this, use the command: 
 git clone https://github.com/Walidname113/Ahikka && cd Ahikka && bash install.sh
-
-In the future, we will update the system for adding values.

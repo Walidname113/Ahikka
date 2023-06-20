@@ -7,3 +7,13 @@ Then the bot will give us information about the account.
 ▪️ Language: FatalError ,
 among this we need only ID. Congratulations, you have received an ID. Just paste the data you received into the appropriate cells.
 
+
+Ru(t manual): Где взять api_id, api_hash, user_id? Как получить api_id и api_hash смотрите здесь: https://youtu.be/DcqDA249Lhg 
+Как получить user_id? Наберите в телеграмме в поисковике @userinfobot, найдите бота и нажмите в нем /start. 
+Затем бот выдаст нам информацию о аккаунте. 
+▪ Никнейм: @Username 
+▪ ID: 1234567890 
+▪ Имя: name 
+▪️ Язык: FatalError , 
+среди этого нам нужен только ID. Поздравляем, вы получили ID. 
+В конце команды python Ahikka_t.py api_id api_hash user_id обязательно укажите предпочитаемый язык, на данный момент поддерживается только 2: EN, RU.

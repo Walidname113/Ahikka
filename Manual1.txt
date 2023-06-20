@@ -1,0 +1,23 @@
+Ru (c manual): Где получить api_id, api_hash, user_id?
+Как получить api_id и api_hash смотрите здесь: https://youtu.be/DcqDA249Lhg
+Как получить user_id? Вбейте в телеграме в поисковике @userinfobot, найдите бота и нажмитё в нём /start
+Дальше нам бот выдаст информацию об аккаунте 
+
+▪ Ник: @Username
+
+▪ ID: 1234567890
+
+▪ Имя: name
+
+▪️ Язык: FatalError
+
+, среди этого нам нужно только ID. Поздравляю, вы получили айди, дальше просто введите все значения которые получили в соответствующее ячейки.
+
+En(t manual): Where to get api_id, api_hash, user_id? How to get api_id and api_hash see here: https://youtu.be/DcqDA249Lhg 
+How to get user_id? Type @userinfobot in the telegram in the search engine, find the bot and press /start in it. Then the bot will give us information about the. 
+account. 
+▪ Nickname: @Username 
+▪ ID: 1234567890 
+▪ Name: name 
+▪️ Language: FatalError , 
+among this we need only ID. Congratulations, you have received an ID. At the end of the command python Ahikka_t.py api_id api_hash user_id be sure to specify the language you prefer, currently only 2 are supported: EN, RU.
